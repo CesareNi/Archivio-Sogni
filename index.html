@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <title>Archivio Progetti</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 15px;
     }
 
@@ -21,21 +18,31 @@
       border-radius: 8px;
     }
 
-    .placeholder {
+    .thumb {
       width: 100%;
-      height: 140px;
-      background: #f5f5f5;
+      height: 160px;
+      object-fit: cover;
       border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #777;
+      cursor: pointer;
     }
 
-    svg {
-      width: 80px;
-      height: 80px;
-      opacity: 0.6;
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    #lightbox.close {
+      display: none;
     }
   </style>
 </head>
@@ -45,48 +52,49 @@
 
   <div class="grid">
 
-    <!-- Acchiappa Rugiada -->
+    <!-- Progetto esempio -->
     <div class="card">
-      <div class="placeholder">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="10" width="60" height="10" fill="none" stroke="black"/>
-          <line x1="20" y1="20" x2="50" y2="80" stroke="black"/>
-          <line x1="80" y1="20" x2="50" y2="80" stroke="black"/>
-          <ellipse cx="50" cy="85" rx="25" ry="10" fill="none" stroke="black"/>
-        </svg>
-      </div>
-      <h3>Acchiappa Rugiada</h3>
-      <p>Dispositivo per raccogliere condensa notturna e trasformarla in acqua utilizzabile.</p>
-    </div>
+      <img class="thumb"
+           src="img/progetto1.jpg"
+           data-full="img/progetto1.jpg"
+           alt="Immagine progetto">
+      <img class="thumb"
+           src="img/progetto1_disegno.jpg"
+           data-full="img/progetto1_disegno.jpg"
+           alt="Disegno">
+      <img class="thumb"
+           src="img/progetto1_esploso.jpg"
+           data-full="img/progetto1_esploso.jpg"
+           alt="Esploso">
 
-    <!-- Sistema Solare -->
-    <div class="card">
-      <div class="placeholder">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="20" fill="none" stroke="black"/>
-          <line x1="50" y1="10" x2="50" y2="0" stroke="black"/>
-          <line x1="50" y1="90" x2="50" y2="100" stroke="black"/>
-          <line x1="10" y1="50" x2="0" y2="50" stroke="black"/>
-          <line x1="90" y1="50" x2="100" y2="50" stroke="black"/>
-        </svg>
-      </div>
-      <h3>Sistema a Energia Solare</h3>
-      <p>Produzione di energia tramite pannelli solari per ridurre il consumo elettrico.</p>
-    </div>
-
-    <!-- Spazio per altri progetti -->
-    <div class="card">
-      <div class="placeholder">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <line x1="20" y1="50" x2="80" y2="50" stroke="black"/>
-          <line x1="50" y1="20" x2="50" y2="80" stroke="black"/>
-        </svg>
-      </div>
-      <h3>Nuovo Progetto</h3>
-      <p>Aggiungi altri progetti all’archivio con la stessa struttura.</p>
+      <h3>Nome Progetto</h3>
+      <p><strong>Descrizione:</strong> ...</p>
+      <p><strong>Come funziona:</strong> ...</p>
     </div>
 
   </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="">
+  </div>
+
+<script>
+const thumbs = document.querySelectorAll('.thumb');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+thumbs.forEach(img => {
+  img.addEventListener('click', () => {
+    lightboxImg.src = img.dataset.full;
+    lightbox.style.display = 'flex';
+  });
+});
+
+function closeLightbox() {
+  lightbox.style.display = 'none';
+}
+</script>
 
 </body>
 </html>
