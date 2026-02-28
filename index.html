@@ -40,10 +40,6 @@
       max-width: 90%;
       max-height: 90%;
     }
-
-    #lightbox.close {
-      display: none;
-    }
   </style>
 </head>
 <body>
@@ -52,30 +48,24 @@
 
   <div class="grid">
 
-    <!-- Progetto esempio -->
     <div class="card">
-      <img class="thumb"
-           src="img/progetto1.jpg"
-           data-full="img/progetto1.jpg"
-           alt="Immagine progetto">
-      <img class="thumb"
-           src="img/progetto1_disegno.jpg"
-           data-full="img/progetto1_disegno.jpg"
-           alt="Disegno">
-      <img class="thumb"
-           src="img/progetto1_esploso.jpg"
-           data-full="img/progetto1_esploso.jpg"
-           alt="Esploso">
+      <img class="thumb" src="img/progetto.jpg" data-full="img/progetto.jpg" alt="Immagine progetto">
+      <img class="thumb" src="img/disegno.jpg" data-full="img/disegno.jpg" alt="Disegno">
+      <img class="thumb" src="img/esploso.jpg" data-full="img/esploso.jpg" alt="Esploso">
 
       <h3>Nome Progetto</h3>
-      <p><strong>Descrizione:</strong> ...</p>
-      <p><strong>Come funziona:</strong> ...</p>
+
+      <p><strong>Descrizione:</strong><br>
+      ...</p>
+
+      <p><strong>Come funziona:</strong><br>
+      ...</p>
     </div>
 
   </div>
 
   <!-- Lightbox -->
-  <div id="lightbox" onclick="closeLightbox()">
+  <div id="lightbox" onclick="this.style.display='none'">
     <img id="lightbox-img" src="">
   </div>
 
@@ -90,10 +80,6 @@ thumbs.forEach(img => {
     lightbox.style.display = 'flex';
   });
 });
-
-function closeLightbox() {
-  lightbox.style.display = 'none';
-}
 </script>
 
 </body>
