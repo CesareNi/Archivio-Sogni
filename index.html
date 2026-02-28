@@ -2,91 +2,91 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Archivio Sogni</title>
+  <title>Archivio Progetti</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 15px;
+    }
+
     .card {
       border: 1px solid #ccc;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
     }
-    img {
+
+    .placeholder {
       width: 100%;
+      height: 140px;
+      background: #f5f5f5;
       border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #777;
     }
-    .bozza {
+
+    svg {
+      width: 80px;
+      height: 80px;
       opacity: 0.6;
     }
   </style>
 </head>
 <body>
 
-  <h1>Archivio Sogni</h1>
+  <h1>Archivio Progetti</h1>
 
-  <h2>Sogni Realizzati</h2>
-  <div id="realizzati" class="grid"></div>
+  <div class="grid">
 
-  <h2>Sogni da Realizzare (bozza)</h2>
-  <div id="bozze" class="grid"></div>
-
-<script>
-const realizzati = [
-  {
-    titolo: "Viaggio in montagna",
-    descrizione: "Escursione tra le vette, foto al tramonto.",
-    img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=60"
-  },
-  {
-    titolo: "Casa sul lago",
-    descrizione: "Piccola casa in legno con vista acqua.",
-    img: "https://images.unsplash.com/photo-1505691723518-36a7f6e8d9a6?auto=format&fit=crop&w=600&q=60"
-  }
-];
-
-const bozze = [
-  {
-    titolo: "Viaggio in Giappone (bozza)",
-    descrizione: "Sogno di visitare Tokyo e Kyoto. Disegno preliminare.",
-    img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=60"
-  },
-  {
-    titolo: "Volare con un pallone aerostatico",
-    descrizione: "Bozza di un viaggio nel cielo al tramonto.",
-    img: "https://images.unsplash.com/photo-1526481280695-3bfa7568e51a?auto=format&fit=crop&w=600&q=60"
-  }
-];
-
-function render() {
-  const r = document.getElementById('realizzati');
-  const b = document.getElementById('bozze');
-
-  r.innerHTML = '';
-  b.innerHTML = '';
-
-  realizzati.forEach(item => {
-    r.innerHTML += `
-      <div class="card">
-        <img src="${item.img}">
-        <h3>${item.titolo}</h3>
-        <p>${item.descrizione}</p>
+    <!-- Acchiappa Rugiada -->
+    <div class="card">
+      <div class="placeholder">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="10" width="60" height="10" fill="none" stroke="black"/>
+          <line x1="20" y1="20" x2="50" y2="80" stroke="black"/>
+          <line x1="80" y1="20" x2="50" y2="80" stroke="black"/>
+          <ellipse cx="50" cy="85" rx="25" ry="10" fill="none" stroke="black"/>
+        </svg>
       </div>
-    `;
-  });
+      <h3>Acchiappa Rugiada</h3>
+      <p>Dispositivo per raccogliere condensa notturna e trasformarla in acqua utilizzabile.</p>
+    </div>
 
-  bozze.forEach(item => {
-    b.innerHTML += `
-      <div class="card bozza">
-        <img src="${item.img}">
-        <h3>${item.titolo}</h3>
-        <p>${item.descrizione}</p>
+    <!-- Sistema Solare -->
+    <div class="card">
+      <div class="placeholder">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="20" fill="none" stroke="black"/>
+          <line x1="50" y1="10" x2="50" y2="0" stroke="black"/>
+          <line x1="50" y1="90" x2="50" y2="100" stroke="black"/>
+          <line x1="10" y1="50" x2="0" y2="50" stroke="black"/>
+          <line x1="90" y1="50" x2="100" y2="50" stroke="black"/>
+        </svg>
       </div>
-    `;
-  });
-}
+      <h3>Sistema a Energia Solare</h3>
+      <p>Produzione di energia tramite pannelli solari per ridurre il consumo elettrico.</p>
+    </div>
 
-render();
-</script>
+    <!-- Spazio per altri progetti -->
+    <div class="card">
+      <div class="placeholder">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="50" x2="80" y2="50" stroke="black"/>
+          <line x1="50" y1="20" x2="50" y2="80" stroke="black"/>
+        </svg>
+      </div>
+      <h3>Nuovo Progetto</h3>
+      <p>Aggiungi altri progetti all’archivio con la stessa struttura.</p>
+    </div>
+
+  </div>
 
 </body>
 </html>
