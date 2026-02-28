@@ -1,62 +1,56 @@
-function salva() {
-  const nik = document.getElementById('nik').value.trim();
-  const sogno = document.getElementById('sogno').value.trim();
-  const descrizione = document.getElementById('descrizione').value.trim();
-  const img = document.getElementById('img').value.trim();
-
-  if (!nik || !sogno) {
-    alert('Compila nik e sogno');
-    return;
+const projects = [
+  {
+    title: "Acchiappa Rugiada",
+    status: "Bozza",
+    main: "img/acchiappa-main.jpg",
+    drawing: "img/acchiappa-disegno.jpg",
+    exploded: "img/acchiappa-esploso.jpg",
+    description: "Sistema per raccolta acqua da condensa notturna.",
+    function: "La superficie si raffredda di notte, la condensa si forma e viene convogliata in un serbatoio."
+  },
+  {
+    title: "Sistema Energia Solare",
+    status: "Realizzato",
+    main: "img/solare-main.jpg",
+    drawing: "img/solare-disegno.jpg",
+    exploded: "img/solare-esploso.jpg",
+    description: "Sistema modulare fotovoltaico autonomo.",
+    function: "I pannelli convertono radiazione solare in corrente continua, regolata e accumulata."
   }
+];
 
-  const data = JSON.parse(localStorage.getItem('sogni') || '[]');
-  data.push({ nik, sogno, descrizione, img, fatto: false });
-  localStorage.setItem('sogni', JSON.stringify(data));
+const gallery = document.getElementById("gallery");
+const modal = document.getElementById("modal");
+const modalBody = document.getElementById("modal-body");
+const closeBtn = document.querySelector(".close");
 
-  document.getElementById('sogno').value = '';
-  document.getElementById('descrizione').value = '';
-  document.getElementById('img').value = '';
+projects.forEach(project => {
+  const card = document.createElement("div");
+  card.className = "card";
 
-  render();
+  card.innerHTML = `
+    <img src="${project.main}">
+    <div class="overlay">
+      <h3>${project.title}</h3>
+      <div class="status">${project.status}</div>
+    </div>
+  `;
+
+  card.onclick = () => openModal(project);
+  gallery.appendChild(card);
+});
+
+function openModal(project) {
+  modalBody.innerHTML = `
+    <h2>${project.title}</h2>
+    <p><strong>Descrizione:</strong> ${project.description}</p>
+    <p><strong>Come funziona:</strong> ${project.function}</p>
+    <img src="${project.main}">
+    <img src="${project.drawing}">
+    <img src="${project.exploded}">
+  `;
+  modal.style.display = "block";
 }
 
-function render() {
-  const data = JSON.parse(localStorage.getItem('sogni') || '[]');
-  const lista = document.getElementById('lista');
-  const realizzati = document.getElementById('realizzati');
-
-  lista.innerHTML = '';
-  realizzati.innerHTML = '';
-
-  data.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.className = 'card';
-
-    div.innerHTML = `
-      <strong>${item.nik}</strong><br>
-      <em>${item.sogno}</em><br>
-      <p>${item.descrizione || ''}</p>
-    `;
-
-    if (item.img) {
-      const img = document.createElement('img');
-      img.src = item.img;
-      div.appendChild(img);
-    }
-
-    const btn = document.createElement('button');
-    btn.textContent = item.fatto ? 'Torna da completare' : 'Segna come realizzato';
-    btn.onclick = () => {
-      data[index].fatto = !data[index].fatto;
-      localStorage.setItem('sogni', JSON.stringify(data));
-      render();
-    };
-
-    div.appendChild(btn);
-
-    if (item.fatto) realizzati.appendChild(div);
-    else lista.appendChild(div);
-  });
-}
-
-render();
+closeBtn.onclick = () => modal.style.display = "none";
+window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
