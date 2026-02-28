@@ -5,15 +5,21 @@
   <title>Archivio Sogni</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
-    input, button { margin: 5px 0; padding: 8px; }
-    ul { list-style: none; padding: 0; }
-    li { margin: 6px 0; }
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    img {
+      max-width: 200px;
+      display: block;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Archivio A — Sogni Realizzabili</h1>
-  <h1>Archivio B — Sogni da Completare</h1>
+  <h1>Archivio Sogni</h1>
 
   <h2>Contribuisci con un sogno</h2>
 
@@ -23,29 +29,40 @@
   <label>Sogno</label><br>
   <input id="sogno" type="text"><br>
 
+  <label>Descrizione</label><br>
+  <input id="descrizione" type="text"><br>
+
+  <label>URL Immagine (facoltativo)</label><br>
+  <input id="img" type="text"><br>
+
   <button onclick="salva()">Salva sogno</button>
 
   <h2>Da completare</h2>
-  <ul id="lista"></ul>
+  <div id="lista"></div>
 
   <h2>Realizzati</h2>
-  <ul id="realizzati"></ul>
+  <div id="realizzati"></div>
 
 <script>
 function salva() {
   const nik = document.getElementById('nik').value.trim();
   const sogno = document.getElementById('sogno').value.trim();
+  const descrizione = document.getElementById('descrizione').value.trim();
+  const img = document.getElementById('img').value.trim();
 
   if (!nik || !sogno) {
-    alert('Compila tutti i campi');
+    alert('Compila nik e sogno');
     return;
   }
 
   const data = JSON.parse(localStorage.getItem('sogni') || '[]');
-  data.push({ nik, sogno, fatto: false });
+  data.push({ nik, sogno, descrizione, img, fatto: false });
   localStorage.setItem('sogni', JSON.stringify(data));
 
   document.getElementById('sogno').value = '';
+  document.getElementById('descrizione').value = '';
+  document.getElementById('img').value = '';
+
   render();
 }
 
@@ -58,8 +75,20 @@ function render() {
   realizzati.innerHTML = '';
 
   data.forEach((item, index) => {
-    const li = document.createElement('li');
-    li.textContent = `${item.nik}: ${item.sogno}`;
+    const div = document.createElement('div');
+    div.className = 'card';
+
+    div.innerHTML = `
+      <strong>${item.nik}</strong><br>
+      <em>${item.sogno}</em><br>
+      <p>${item.descrizione || ''}</p>
+    `;
+
+    if (item.img) {
+      const img = document.createElement('img');
+      img.src = item.img;
+      div.appendChild(img);
+    }
 
     const btn = document.createElement('button');
     btn.textContent = item.fatto ? 'Torna da completare' : 'Segna come realizzato';
@@ -69,10 +98,10 @@ function render() {
       render();
     };
 
-    li.appendChild(btn);
+    div.appendChild(btn);
 
-    if (item.fatto) realizzati.appendChild(li);
-    else lista.appendChild(li);
+    if (item.fatto) realizzati.appendChild(div);
+    else lista.appendChild(div);
   });
 }
 
