@@ -1,24 +1,76 @@
 body {
+  margin: 0;
+  background: #0f0f0f;
+  color: white;
   font-family: Arial, sans-serif;
-  margin: 20px;
 }
 
-.grid {
+.title {
+  text-align: center;
+  padding: 30px;
+  font-size: 32px;
+}
+
+.gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .card {
-  border: 1px solid #ccc;
-  padding: 12px;
-  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.thumb {
+.card img {
   width: 100%;
-  height: 160px;
+  height: 300px;
   object-fit: cover;
-  border-radius: 6px;
+  transition: 0.4s;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  width: 100%;
+  padding: 20px;
+}
+
+.status {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  margin: 5% auto;
+  width: 80%;
+}
+
+.modal-content img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.close {
+  float: right;
+  font-size: 30px;
   cursor: pointer;
 }
