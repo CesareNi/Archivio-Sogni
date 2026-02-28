@@ -1,86 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Archivio Progetti</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 15px;
-    }
-
-    .card {
-      border: 1px solid #ccc;
-      padding: 12px;
-      border-radius: 8px;
-    }
-
-    .thumb {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* Lightbox */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      align-items: center;
-      justify-content: center;
-    }
-
-    #lightbox img {
-      max-width: 90%;
-      max-height: 90%;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Archivio Progetti</title>
 </head>
 <body>
 
-  <h1>Archivio Progetti</h1>
+<h1>Archivio Progetti</h1>
 
-  <div class="grid">
+<h2>Acchiappa Rugiada</h2>
 
-    <div class="card">
-      <img class="thumb" src="img/progetto.jpg" data-full="img/progetto.jpg" alt="Immagine progetto">
-      <img class="thumb" src="img/disegno.jpg" data-full="img/disegno.jpg" alt="Disegno">
-      <img class="thumb" src="img/esploso.jpg" data-full="img/esploso.jpg" alt="Esploso">
+<img src="img/acchiappa.jpg" width="300">
 
-      <h3>Nome Progetto</h3>
+<p><strong>Descrizione:</strong><br>
+Sistema per raccogliere la rugiada notturna tramite superficie inclinata.
+</p>
 
-      <p><strong>Descrizione:</strong><br>
-      ...</p>
-
-      <p><strong>Come funziona:</strong><br>
-      ...</p>
-    </div>
-
-  </div>
-
-  <!-- Lightbox -->
-  <div id="lightbox" onclick="this.style.display='none'">
-    <img id="lightbox-img" src="">
-  </div>
-
-<script>
-const thumbs = document.querySelectorAll('.thumb');
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-
-thumbs.forEach(img => {
-  img.addEventListener('click', () => {
-    lightboxImg.src = img.dataset.full;
-    lightbox.style.display = 'flex';
-  });
-});
-</script>
+<p><strong>Come funziona:</strong><br>
+Durante la notte l’umidità condensa sulla superficie fredda.
+Le gocce scorrono verso il basso e vengono raccolte in un contenitore.
+</p>
 
 </body>
 </html>
