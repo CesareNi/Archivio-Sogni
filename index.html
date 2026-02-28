@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Archivio dei Sogni</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Archivio dei Sogni</h1>
+  </header>
+
+  <main>
+    <section id="archivio-a">
+      <h2>Archivio A — Sogni Realizzabili</h2>
+      <div id="lista-a"></div>
+    </section>
+
+    <section id="archivio-b">
+      <h2>Archivio B — Sogni da Completare</h2>
+      <div id="lista-b"></div>
+    </section>
+
+    <section id="contributo">
+      <h2>Contribuisci con un sogno</h2>
+      <form id="form-contributo">
+        <input type="text" id="nik" placeholder="Il tuo nik" required>
+        <textarea id="idea" placeholder="Descrivi il sogno..." required></textarea>
+        <button type="submit">Invia contributo</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
