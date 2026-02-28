@@ -2,37 +2,82 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Archivio dei Sogni</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Archivio Sogni</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    input, button { margin: 5px 0; padding: 8px; }
+    ul { list-style: none; padding: 0; }
+    li { margin: 6px 0; }
+  </style>
 </head>
 <body>
 
-  <header>
-    <h1>Archivio dei Sogni</h1>
-  </header>
+  <h1>Archivio A — Sogni Realizzabili</h1>
+  <h1>Archivio B — Sogni da Completare</h1>
 
-  <main>
-    <section id="archivio-a">
-      <h2>Archivio A — Sogni Realizzabili</h2>
-      <div id="lista-a"></div>
-    </section>
+  <h2>Contribuisci con un sogno</h2>
 
-    <section id="archivio-b">
-      <h2>Archivio B — Sogni da Completare</h2>
-      <div id="lista-b"></div>
-    </section>
+  <label>Il tuo nik</label><br>
+  <input id="nik" type="text"><br>
 
-    <section id="contributo">
-      <h2>Contribuisci con un sogno</h2>
-      <form id="form-contributo">
-        <input type="text" id="nik" placeholder="Il tuo nik" required>
-        <textarea id="idea" placeholder="Descrivi il sogno..." required></textarea>
-        <button type="submit">Invia contributo</button>
-      </form>
-    </section>
-  </main>
+  <label>Sogno</label><br>
+  <input id="sogno" type="text"><br>
 
-  <script src="script.js"></script>
+  <button onclick="salva()">Salva sogno</button>
+
+  <h2>Da completare</h2>
+  <ul id="lista"></ul>
+
+  <h2>Realizzati</h2>
+  <ul id="realizzati"></ul>
+
+<script>
+function salva() {
+  const nik = document.getElementById('nik').value.trim();
+  const sogno = document.getElementById('sogno').value.trim();
+
+  if (!nik || !sogno) {
+    alert('Compila tutti i campi');
+    return;
+  }
+
+  const data = JSON.parse(localStorage.getItem('sogni') || '[]');
+  data.push({ nik, sogno, fatto: false });
+  localStorage.setItem('sogni', JSON.stringify(data));
+
+  document.getElementById('sogno').value = '';
+  render();
+}
+
+function render() {
+  const data = JSON.parse(localStorage.getItem('sogni') || '[]');
+  const lista = document.getElementById('lista');
+  const realizzati = document.getElementById('realizzati');
+
+  lista.innerHTML = '';
+  realizzati.innerHTML = '';
+
+  data.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.textContent = `${item.nik}: ${item.sogno}`;
+
+    const btn = document.createElement('button');
+    btn.textContent = item.fatto ? 'Torna da completare' : 'Segna come realizzato';
+    btn.onclick = () => {
+      data[index].fatto = !data[index].fatto;
+      localStorage.setItem('sogni', JSON.stringify(data));
+      render();
+    };
+
+    li.appendChild(btn);
+
+    if (item.fatto) realizzati.appendChild(li);
+    else lista.appendChild(li);
+  });
+}
+
+render();
+</script>
+
 </body>
 </html>
