@@ -3,34 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>Archivio Sogni</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+    .card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    img {
+      width: 100%;
+      border-radius: 6px;
+    }
+    .bozza {
+      opacity: 0.6;
+    }
+  </style>
 </head>
 <body>
 
   <h1>Archivio Sogni</h1>
 
-  <h2>Contribuisci con un sogno</h2>
+  <h2>Sogni Realizzati</h2>
+  <div id="realizzati" class="grid"></div>
 
-  <label>Il tuo nik</label>
-  <input id="nik" type="text">
+  <h2>Sogni da Realizzare (bozza)</h2>
+  <div id="bozze" class="grid"></div>
 
-  <label>Sogno</label>
-  <input id="sogno" type="text">
+<script>
+const realizzati = [
+  {
+    titolo: "Viaggio in montagna",
+    descrizione: "Escursione tra le vette, foto al tramonto.",
+    img: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=60"
+  },
+  {
+    titolo: "Casa sul lago",
+    descrizione: "Piccola casa in legno con vista acqua.",
+    img: "https://images.unsplash.com/photo-1505691723518-36a7f6e8d9a6?auto=format&fit=crop&w=600&q=60"
+  }
+];
 
-  <label>Descrizione</label>
-  <input id="descrizione" type="text">
+const bozze = [
+  {
+    titolo: "Viaggio in Giappone (bozza)",
+    descrizione: "Sogno di visitare Tokyo e Kyoto. Disegno preliminare.",
+    img: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=600&q=60"
+  },
+  {
+    titolo: "Volare con un pallone aerostatico",
+    descrizione: "Bozza di un viaggio nel cielo al tramonto.",
+    img: "https://images.unsplash.com/photo-1526481280695-3bfa7568e51a?auto=format&fit=crop&w=600&q=60"
+  }
+];
 
-  <label>URL Immagine</label>
-  <input id="img" type="text">
+function render() {
+  const r = document.getElementById('realizzati');
+  const b = document.getElementById('bozze');
 
-  <button onclick="salva()">Salva sogno</button>
+  r.innerHTML = '';
+  b.innerHTML = '';
 
-  <h2>Da completare</h2>
-  <div id="lista"></div>
+  realizzati.forEach(item => {
+    r.innerHTML += `
+      <div class="card">
+        <img src="${item.img}">
+        <h3>${item.titolo}</h3>
+        <p>${item.descrizione}</p>
+      </div>
+    `;
+  });
 
-  <h2>Realizzati</h2>
-  <div id="realizzati"></div>
+  bozze.forEach(item => {
+    b.innerHTML += `
+      <div class="card bozza">
+        <img src="${item.img}">
+        <h3>${item.titolo}</h3>
+        <p>${item.descrizione}</p>
+      </div>
+    `;
+  });
+}
 
-  <script src="script.js"></script>
+render();
+</script>
+
 </body>
 </html>
